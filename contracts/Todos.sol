@@ -12,6 +12,10 @@ contract Todos {
     todos.push(todo);
   }
 
+  function getTodos() public view returns (bytes32[]) {
+    return todos;
+  }
+
   function kill() public {
     require(msg.sender == owner);
     selfdestruct(owner);
