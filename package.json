@@ -1,7 +1,7 @@
 {
   "name": "eth-todos",
   "version": "1.0.0",
-  "description": "# Technical stack + Solidity + Web3js + Truffle + Reactjs",
+  "description": "## Technical stack",
   "main": "truffle-config.js",
   "directories": {
     "test": "test"
