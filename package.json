@@ -1,0 +1,19 @@
+{
+  "name": "eth-todos",
+  "version": "1.0.0",
+  "description": "# Technical stack + Solidity + Web3js + Truffle + Reactjs",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "prettier-eslint": "^8.8.2"
+  }
+}
