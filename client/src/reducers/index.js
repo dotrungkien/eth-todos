@@ -20,7 +20,7 @@ const todos = (state = initialState, action) => {
     case TODOS_CONTRACT_INSTANTIATED:
       return {
         ...state,
-        todosContract: action.payload
+        contract: action.payload
       };
     case TODOS_FETCHED:
       return {

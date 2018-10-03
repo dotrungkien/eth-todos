@@ -16,9 +16,9 @@ class App extends Component {
     this.state = {
       textarea: ""
     };
-    this.renderTodos.bind(this);
-    this.handleTextareaChange.bind(this);
-    this.addTodo.bind(this);
+    this.renderTodos = this.renderTodos.bind(this);
+    this.handleTextareaChange = this.handleTextareaChange.bind(this);
+    this.addTodo = this.addTodo.bind(this);
   }
 
   componentWillMount() {
@@ -54,6 +54,7 @@ class App extends Component {
           value={this.state.textarea}
           onChange={this.handleTextareaChange}
         />
+        <br />
         <button onClick={this.addTodo}>Add Todo</button>
         <ul>{this.renderTodos(this.props.todos)}</ul>
       </div>
