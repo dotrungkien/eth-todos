@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Button from "@material-ui/core/Button";
 
 import {
   web3Connect,
@@ -7,8 +8,6 @@ import {
   fetchTodos,
   addTodo
 } from "./actions";
-
-import "./App.css";
 
 class App extends Component {
   constructor(props) {
@@ -55,7 +54,9 @@ class App extends Component {
           onChange={this.handleTextareaChange}
         />
         <br />
-        <button onClick={this.addTodo}>Add Todo</button>
+        <Button onClick={this.addTodo} variant="contained" color="primary">
+          Add Todo
+        </Button>
         <ul>{this.renderTodos(this.props.todos)}</ul>
       </div>
     );
