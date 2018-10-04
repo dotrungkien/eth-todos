@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Account from "./components/Account";
+import { List, Grid } from "@material-ui/core";
+
+import Todo from "./components/Todo";
 
 import {
   web3Connect,
@@ -41,14 +42,13 @@ class App extends Component {
   deleteTodo(e) {}
 
   renderTodos(todos) {
-    return todos.map((todo, i) => (
-      <li key={i}>
-        {todo.content} {todo.completed}
-        <IconButton onClick={this.deleteTodo}>
-          <DeleteIcon />
-        </IconButton>
-      </li>
-    ));
+    var todoList = todos.map((todo, i) => <Todo key={i} id={i} todo={todo} />);
+
+    return (
+      <List dense={false} style={{ marginLeft: "5%" }}>
+        {todoList}
+      </List>
+    );
   }
 
   addTodo() {
@@ -59,18 +59,20 @@ class App extends Component {
     if (!this.props.web3) return "Loading web3....";
     return (
       <div className="App" align="center">
-        <h1>Todos</h1>
-        <Account web3={this.props.web3} />
-        <textarea
-          id="textarea"
-          value={this.state.textarea}
-          onChange={this.handleTextareaChange}
-        />
-        <br />
-        <Button onClick={this.addTodo} variant="contained" color="primary">
-          Add Todo
-        </Button>
-        <ul>{this.renderTodos(this.props.todos)}</ul>
+        <Grid item xs={12} md={3}>
+          <h1>Todos</h1>
+          <Account web3={this.props.web3} />
+          <textarea
+            id="textarea"
+            value={this.state.textarea}
+            onChange={this.handleTextareaChange}
+          />
+          <br />
+          <Button onClick={this.addTodo} variant="contained" color="primary">
+            Add Todo
+          </Button>
+          <ul>{this.renderTodos(this.props.todos)}</ul>
+        </Grid>
       </div>
     );
   }

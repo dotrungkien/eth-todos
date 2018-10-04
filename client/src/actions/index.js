@@ -4,6 +4,7 @@ import Todos from "../contracts/Todos";
 import {
   WEB3_CONNECTED,
   TODO_ADDED,
+  TODO_DELETED,
   TODOS_CONTRACT_INSTANTIATED,
   TODOS_FETCHED
 } from "../constants/ActionTypes";
@@ -47,7 +48,6 @@ export function fetchTodos() {
     const web3 = state.web3;
     const contract = state.contract;
     const numberOfTodos = await contract.numberOfTodos();
-    console.log("number of Todos " + numberOfTodos);
     const todos = [];
     for (let i = 0; i < numberOfTodos; i++) {
       const todo = await contract.getTodo(i);
@@ -66,12 +66,24 @@ export function addTodo(payload) {
   return async (dispatch, getState) => {
     const state = getState();
     const web3 = state.web3;
-    console.log("account = " + web3.eth.coinbase);
     const contract = state.contract;
     await contract.addTodo(payload, { from: web3.eth.coinbase });
     dispatch({
       type: TODO_ADDED,
       payload
+    });
+  };
+}
+
+export function deleteTodo(id) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const web3 = state.web3;
+    const contract = state.contract;
+    await contract.deleteTodo(id, { from: web3.eth.coinbase });
+    dispatch({
+      type: TODO_DELETED,
+      id
     });
   };
 }
