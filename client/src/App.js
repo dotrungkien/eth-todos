@@ -67,7 +67,7 @@ class App extends Component {
   render() {
     if (!this.props.web3) return "Loading web3....";
     return (
-      <div className="App">
+      <div className="App" align="center">
         <h1>Todos</h1>
         <Account web3={this.props.web3} />
         <textarea
