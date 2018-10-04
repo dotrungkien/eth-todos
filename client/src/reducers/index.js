@@ -30,7 +30,7 @@ const todos = (state = initialState, action) => {
     case TODO_ADDED:
       return {
         ...state,
-        todos: [...state.todos, action.payload]
+        todos: [...state.todos, { content: action.payload, completed: false }]
       };
     default:
       return state;

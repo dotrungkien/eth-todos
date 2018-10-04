@@ -42,33 +42,36 @@ export function instantiateContract() {
 }
 
 export function fetchTodos() {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     const state = getState();
     const web3 = state.web3;
     const contract = state.contract;
-    contract.getTodos().then(todos => {
-      dispatch({
-        type: TODOS_FETCHED,
-        payload: todos.length > 0 ? todos.map(todo => web3.toAscii(todo)) : []
-      });
+    const numberOfTodos = await contract.numberOfTodos();
+    console.log("number of Todos " + numberOfTodos);
+    const todos = [];
+    for (let i = 0; i < numberOfTodos; i++) {
+      const todo = await contract.getTodo(i);
+      const content = web3.toAscii(todo[0]);
+      const completed = todo[1];
+      todos.push({ content, completed });
+    }
+    dispatch({
+      type: TODOS_FETCHED,
+      payload: todos
     });
   };
 }
 
 export function addTodo(payload) {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     const state = getState();
     const web3 = state.web3;
+    console.log("account = " + web3.eth.coinbase);
     const contract = state.contract;
-    web3.eth.getAccounts((err, accounts) => {
-      contract
-        .addTodo(web3.fromAscii(payload), { from: accounts[0] })
-        .then(results => {
-          dispatch({
-            type: TODO_ADDED,
-            payload
-          });
-        });
+    await contract.addTodo(payload, { from: web3.eth.coinbase });
+    dispatch({
+      type: TODO_ADDED,
+      payload
     });
   };
 }
