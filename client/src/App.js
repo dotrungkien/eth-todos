@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Account from "./components/Account";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
 
 import {
   web3Connect,
@@ -36,7 +45,19 @@ class App extends Component {
   }
 
   renderTodos(todos) {
-    return todos.map((todo, i) => <li key={i}>{todo}</li>);
+    return todos.map((todo, i) => (
+      <li key={i}>
+        {todo}
+
+        <IconButton
+          tooltip="remove"
+          tooltipPosition="bottom-right"
+          onClick={this.onClick}
+        >
+          <DeleteIcon />
+        </IconButton>
+      </li>
+    ));
   }
 
   addTodo() {
@@ -48,6 +69,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Todos</h1>
+        <Account web3={this.props.web3} />
         <textarea
           id="textarea"
           value={this.state.textarea}
