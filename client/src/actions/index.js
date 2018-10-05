@@ -81,7 +81,7 @@ export function deleteTodo(id) {
     const state = getState();
     const web3 = state.web3;
     const contract = state.contract;
-    await contract.deleteTodo(id, { from: web3.eth.coinbase });
+    await contract.deleteTodo(id, { gas: 300000, from: web3.eth.coinbase });
     dispatch({
       type: TODO_DELETED,
       id

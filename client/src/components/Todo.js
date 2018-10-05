@@ -6,26 +6,18 @@ import {
   IconButton,
   Checkbox
 } from "@material-ui/core";
-import { Delete, Edit } from "@material-ui/icons";
+import { Delete } from "@material-ui/icons";
 
-class Todo extends Component {
-  render() {
-    const { id, todo } = this.props;
-    return (
-      <ListItem>
-        <Checkbox checked={todo.completed} />
-        <ListItemText>{todo.content}</ListItemText>
-        <ListItemSecondaryAction>
-          <IconButton onClick={() => this.props.deleteTodo(id)}>
-            <Delete />
-          </IconButton>
-          <IconButton onClick={() => this.props.updateTodo(id)}>
-            <Edit />
-          </IconButton>
-        </ListItemSecondaryAction>
-      </ListItem>
-    );
-  }
-}
+const Todo = ({ id, todo, deleteTodo }) => (
+  <ListItem>
+    <Checkbox checked={todo.completed} />
+    <ListItemText>{todo.content}</ListItemText>
+    <ListItemSecondaryAction>
+      <IconButton onClick={() => deleteTodo(id)}>
+        <Delete />
+      </IconButton>
+    </ListItemSecondaryAction>
+  </ListItem>
+);
 
 export default Todo;
