@@ -2,6 +2,7 @@ import {
   WEB3_CONNECTED,
   TODO_ADDED,
   TODO_DELETED,
+  TODO_UPDATED,
   TODOS_CONTRACT_INSTANTIATED,
   TODOS_FETCHED
 } from "../constants/ActionTypes";
@@ -39,6 +40,14 @@ const todos = (state = initialState, action) => {
       return {
         ...state,
         todos: todos
+      };
+    case TODO_UPDATED:
+      return {
+        ...state,
+        todos: state.todos.splice(action.payload.id, 1, {
+          content: action.payload.content,
+          completed: action.payload.completed
+        })
       };
     default:
       return state;

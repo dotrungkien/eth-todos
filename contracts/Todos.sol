@@ -25,14 +25,17 @@ contract Todos {
     todos.push(Todo(content, false));
   }
 
-  function updateTodo(uint id, bytes32 content) public {
+  function updateTodo(uint id, bytes32 content, bool completed) public {
     require(id < todos.length);
     todos[id].content = content;
+    todos[id].completed = completed;
   }
 
   function deleteTodo(uint id) public {
     require(id < todos.length);
-    todos[id] = todos[todos.length - 1];
+    for (uint i = id; i < todos.length - 1; i++) {
+      todos[i] = todos[i+1];
+    }
     todos.length--;
   }
 

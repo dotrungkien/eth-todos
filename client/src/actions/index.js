@@ -5,6 +5,7 @@ import {
   WEB3_CONNECTED,
   TODO_ADDED,
   TODO_DELETED,
+  TODO_UPDATED,
   TODOS_CONTRACT_INSTANTIATED,
   TODOS_FETCHED
 } from "../constants/ActionTypes";
@@ -84,6 +85,22 @@ export function deleteTodo(id) {
     dispatch({
       type: TODO_DELETED,
       id
+    });
+  };
+}
+
+export function updateTodo(id, content, completed) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const web3 = state.web3;
+    const contract = state.contract;
+    await contract.updateTodo(id, content, completed, {
+      from: web3.eth.coinbase
+    });
+    const payload = { id, content, completed };
+    dispatch({
+      type: TODO_UPDATED,
+      payload
     });
   };
 }
