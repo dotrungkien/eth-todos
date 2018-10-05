@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import Account from "./components/Account";
 import { List, Grid } from "@material-ui/core";
 
-import Todo from "./components/Todo";
+import TodoContainer from "./containers/TodoContainer";
 
 import {
   web3Connect,
@@ -42,7 +42,9 @@ class App extends Component {
   deleteTodo(e) {}
 
   renderTodos(todos) {
-    var todoList = todos.map((todo, i) => <Todo key={i} id={i} todo={todo} />);
+    var todoList = todos.map((todo, i) => (
+      <TodoContainer key={i} id={i} todo={todo} />
+    ));
 
     return (
       <List dense={false} style={{ marginLeft: "5%" }}>
