@@ -56,6 +56,7 @@ export function fetchTodos() {
       const completed = todo[1];
       todos.push({ content, completed });
     }
+    console.log(todos);
     dispatch({
       type: TODOS_FETCHED,
       payload: todos

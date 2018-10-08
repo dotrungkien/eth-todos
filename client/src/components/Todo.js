@@ -45,17 +45,20 @@ class Todo extends Component {
   };
 
   handleBoxCheck = e => {
+    e.preventDefault();
     this.setState({ completed: e.target.checked });
     this.props.updateTodo(this.state.id, this.state.content, e.target.checked);
   };
 
   handleKeyDown = e => {
     if (e.keyCode === 13) {
+      e.preventDefault();
       this.submitUpdate(e.target.value);
     }
   };
 
   handleBlur = e => {
+    e.preventDefault();
     this.submitUpdate(e.target.value);
   };
 
