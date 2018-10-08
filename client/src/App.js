@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 
 import Account from "./components/Account";
 import AddTodoContainer from "./containers/AddTodoContainer";
-// import TodoContainer from "./containers/TodoContainer";
+import TodoListContainer from "./containers/TodoListContainer";
 
 import {
   web3Connect,
@@ -22,23 +22,6 @@ class App extends Component {
       });
     });
   }
-  // handleTextareaChange(e) {
-  //   this.setState({
-  //     textarea: e.target.value
-  //   });
-  // }
-
-  // renderTodos(todos) {
-  //   var todoList = todos.map((todo, i) => (
-  //     <TodoContainer key={i} id={i} todo={todo} />
-  //   ));
-
-  //   return (
-  //     <List dense={false} style={{ marginLeft: "5%" }}>
-  //       {todoList}
-  //     </List>
-  //   );
-  // }
 
   render() {
     if (!this.props.web3) return "Loading web3....";
@@ -55,7 +38,7 @@ class App extends Component {
         <br />
         <AddTodoContainer />
         <br />
-        {/* <TodoList /> */}
+        <TodoListContainer todos={this.props.todos} />
       </Grid>
     );
   }
