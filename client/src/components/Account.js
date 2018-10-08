@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Grid, List, ListItem, Avatar, ListItemText } from "@material-ui/core";
+import { AccountBox, AccountBalanceWallet } from "@material-ui/icons";
 
 class Account extends Component {
   constructor(props) {
@@ -21,20 +23,22 @@ class Account extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          Account:
-          <strong>
-            <span>{this.state.account}</span>
-          </strong>
-        </div>
-        <div>
-          Balance:
-          <strong>
-            <span>{this.state.balance} ETH</span>
-          </strong>
-        </div>
-      </div>
+      <Grid item xs={12}>
+        <List>
+          <ListItem>
+            <Avatar>
+              <AccountBox />
+            </Avatar>
+            <ListItemText>{this.state.account}</ListItemText>
+          </ListItem>
+          <ListItem>
+            <Avatar>
+              <AccountBalanceWallet />
+            </Avatar>
+            <ListItemText>{this.state.balance} ETH</ListItemText>
+          </ListItem>
+        </List>
+      </Grid>
     );
   }
 }

@@ -1,17 +1,18 @@
 import React from "react";
+
 import {
   ListItem,
-  ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  Checkbox
+  Checkbox,
+  TextField
 } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
 
-const Todo = ({ id, todo, deleteTodo }) => (
+const EditTodo = ({ id, todo, deleteTodo }) => (
   <ListItem>
     <Checkbox checked={todo.completed} />
-    <ListItemText>{todo.content}</ListItemText>
+    <TextField>{todo.content}</TextField>
     <ListItemSecondaryAction>
       <IconButton onClick={() => deleteTodo(id)}>
         <Delete />
@@ -20,4 +21,4 @@ const Todo = ({ id, todo, deleteTodo }) => (
   </ListItem>
 );
 
-export default Todo;
+export default EditTodo;
