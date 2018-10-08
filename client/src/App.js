@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Account from "./components/Account";
-import { List, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
-// import TodoList from "./components/TodoList";
+import Account from "./components/Account";
 import AddTodoContainer from "./containers/AddTodoContainer";
 // import TodoContainer from "./containers/TodoContainer";
 
@@ -15,16 +14,6 @@ import {
 } from "./actions";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      textarea: ""
-    };
-    // this.renderTodos = this.renderTodos.bind(this);
-    // this.handleTextareaChange = this.handleTextareaChange.bind(this);
-    // this.addTodo = this.addTodo.bind(this);
-  }
-
   componentWillMount() {
     window.addEventListener("load", () => {
       this.props.web3Connect();
