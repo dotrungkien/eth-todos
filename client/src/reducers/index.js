@@ -9,7 +9,8 @@ import {
 
 const initialState = {
   web3: null,
-  todos: []
+  todos: [],
+  contract: null
 };
 
 const todos = (state = initialState, action) => {

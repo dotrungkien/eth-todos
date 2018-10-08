@@ -10,100 +10,91 @@ import {
   TODOS_FETCHED
 } from "../constants/ActionTypes";
 
-export function web3Connect() {
-  return dispatch => {
-    const web3 = window.web3;
-    if (typeof web3 !== "undefined") {
-      dispatch({
-        type: WEB3_CONNECTED,
-        payload: new Web3(web3.currentProvider)
-      });
-    } else {
-      dispatch({
-        type: WEB3_CONNECTED,
-        payload: new Web3(
-          new Web3.providers.HttpProvider("http://127.0.0.1:9545")
-        )
-      });
-    }
-  };
-}
-
-export function instantiateContract() {
-  return (dispatch, getState) => {
-    const web3 = getState().web3;
-    const todos = contract(Todos);
-    todos.setProvider(web3.currentProvider);
-    return todos.deployed().then(contract => {
-      dispatch({
-        type: TODOS_CONTRACT_INSTANTIATED,
-        payload: contract
-      });
-    });
-  };
-}
-
-export function fetchTodos() {
-  return async (dispatch, getState) => {
-    const state = getState();
-    const web3 = state.web3;
-    const contract = state.contract;
-    const numberOfTodos = await contract.numberOfTodos();
-    const todos = [];
-    for (let i = 0; i < numberOfTodos; i++) {
-      const todo = await contract.getTodo(i);
-      const content = web3.toAscii(todo[0]);
-      const completed = todo[1];
-      todos.push({ content, completed });
-    }
-    console.log(todos);
+export const web3Connect = () => dispatch => {
+  const web3 = window.web3;
+  if (typeof web3 !== "undefined") {
     dispatch({
-      type: TODOS_FETCHED,
-      payload: todos
+      type: WEB3_CONNECTED,
+      payload: new Web3(web3.currentProvider)
     });
-  };
-}
-
-export function addTodo(payload) {
-  return async (dispatch, getState) => {
-    const state = getState();
-    const web3 = state.web3;
-    const contract = state.contract;
-    await contract.addTodo(payload, { from: web3.eth.coinbase });
+  } else {
     dispatch({
-      type: TODO_ADDED,
-      payload
+      type: WEB3_CONNECTED,
+      payload: new Web3(
+        new Web3.providers.HttpProvider("http://127.0.0.1:9545")
+      )
     });
-  };
-}
+  }
+};
 
-export function deleteTodo(id) {
-  return async (dispatch, getState) => {
-    const state = getState();
-    const web3 = state.web3;
-    const contract = state.contract;
-    await contract.deleteTodo(id, { gas: 300000, from: web3.eth.coinbase });
+export const instantiateContract = () => (dispatch, getState) => {
+  const web3 = getState().web3;
+  const todos = contract(Todos);
+  todos.setProvider(web3.currentProvider);
+  return todos.deployed().then(contract => {
     dispatch({
-      type: TODO_DELETED,
-      id
+      type: TODOS_CONTRACT_INSTANTIATED,
+      payload: contract
     });
-  };
-}
+  });
+};
 
-export function updateTodo(id, content, completed) {
-  return async (dispatch, getState) => {
-    const state = getState();
-    const web3 = state.web3;
-    const contract = state.contract;
-    console.log("updateTodo", id, content, completed);
-    await contract.updateTodo(id, content, completed, {
-      from: web3.eth.coinbase,
-      gas: 300000
-    });
-    const payload = { id, content, completed };
-    dispatch({
-      type: TODO_UPDATED,
-      payload
-    });
-  };
-}
+export const fetchTodos = () => async (dispatch, getState) => {
+  const state = getState();
+  const web3 = state.web3;
+  const contract = state.contract;
+  const numberOfTodos = await contract.numberOfTodos();
+  const todos = [];
+  for (let i = 0; i < numberOfTodos; i++) {
+    const todo = await contract.getTodo(i);
+    const content = web3.toAscii(todo[0]);
+    const completed = todo[1];
+    todos.push({ content, completed });
+  }
+  console.log(todos);
+  dispatch({
+    type: TODOS_FETCHED,
+    payload: todos
+  });
+};
+
+export const addTodo = payload => async (dispatch, getState) => {
+  const state = getState();
+  const web3 = state.web3;
+  const contract = state.contract;
+  await contract.addTodo(payload, { from: web3.eth.coinbase });
+  dispatch({
+    type: TODO_ADDED,
+    payload
+  });
+};
+
+export const deleteTodo = id => async (dispatch, getState) => {
+  const state = getState();
+  const web3 = state.web3;
+  const contract = state.contract;
+  await contract.deleteTodo(id, { gas: 300000, from: web3.eth.coinbase });
+  dispatch({
+    type: TODO_DELETED,
+    id
+  });
+};
+
+export const updateTodo = (id, content, completed) => async (
+  dispatch,
+  getState
+) => {
+  const state = getState();
+  const web3 = state.web3;
+  const contract = state.contract;
+  console.log("updateTodo", id, content, completed);
+  await contract.updateTodo(id, content, completed, {
+    from: web3.eth.coinbase,
+    gas: 300000
+  });
+  const payload = { id, content, completed };
+  dispatch({
+    type: TODO_UPDATED,
+    payload
+  });
+};
