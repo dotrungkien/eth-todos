@@ -42,12 +42,14 @@ const todos = (state = initialState, action) => {
         todos: todos
       };
     case TODO_UPDATED:
+      let todosToUpdate = state.todos.slice();
+      todosToUpdate.splice(action.payload.id, 1, {
+        content: action.payload.content,
+        completed: action.payload.completed
+      });
       return {
         ...state,
-        todos: state.todos.splice(action.payload.id, 1, {
-          content: action.payload.content,
-          completed: action.payload.completed
-        })
+        todos: todosToUpdate
       };
     default:
       return state;

@@ -94,8 +94,10 @@ export function updateTodo(id, content, completed) {
     const state = getState();
     const web3 = state.web3;
     const contract = state.contract;
+    console.log("updateTodo", id, content, completed);
     await contract.updateTodo(id, content, completed, {
-      from: web3.eth.coinbase
+      from: web3.eth.coinbase,
+      gas: 300000
     });
     const payload = { id, content, completed };
     dispatch({

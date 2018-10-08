@@ -4,22 +4,23 @@ import { connect } from "react-redux";
 import { deleteTodo, updateTodo } from "../actions";
 import { List } from "@material-ui/core";
 
-const TodoListContainer = ({ todos, deleteTodo, updateTodo }) => (
-  <List>
-    {todos.length
-      ? todos.map((todo, index) => (
-          <Todo
-            key={index}
-            id={index}
-            todo={todo}
-            deleteTodo={() => deleteTodo(index)}
-            updateTodo={() => updateTodo(index)}
-          />
-        ))
-      : null}
-  </List>
-);
-
+const TodoListContainer = ({ todos, deleteTodo, updateTodo }) => {
+  return (
+    <List>
+      {todos.length
+        ? todos.map((todo, index) => (
+            <Todo
+              key={index}
+              id={index}
+              {...todo}
+              deleteTodo={deleteTodo}
+              updateTodo={updateTodo}
+            />
+          ))
+        : null}
+    </List>
+  );
+};
 const mapDispatchToProps = {
   deleteTodo,
   updateTodo
