@@ -43,15 +43,16 @@ export const instantiateContract = () => (dispatch, getState) => {
 export const getAccountInfo = () => (dispatch, getState) => {
   const state = getState();
   const web3 = state.web3;
-  const accounts = web3.eth.accounts;
-  web3.eth.getBalance(accounts[0], (err, result) => {
+  web3.eth.getAccounts((err, result) => {
     if (!err) {
-      console.log(accounts[0], result.toNumber());
-      dispatch({
-        type: ACCOUNT_INFO,
-        payload: {
-          account: accounts[0],
-          balance: web3.fromWei(result.toNumber())
+      const account = result[0];
+      web3.eth.getBalance(account, (err, result) => {
+        if (!err) {
+          const balance = web3.fromWei(result.toNumber());
+          dispatch({
+            type: ACCOUNT_INFO,
+            payload: { account, balance }
+          });
         }
       });
     }

@@ -10,8 +10,7 @@ import {
   web3Connect,
   getAccountInfo,
   instantiateContract,
-  fetchTodos,
-  addTodo
+  fetchTodos
 } from "./actions";
 
 class App extends Component {
@@ -49,8 +48,7 @@ const mapDispatchToProps = {
   web3Connect,
   getAccountInfo,
   instantiateContract,
-  fetchTodos,
-  addTodo
+  fetchTodos
 };
 
 const mapsStateToProps = state => ({
