@@ -26,9 +26,7 @@ class Todo extends Component {
   }
 
   componentWillMount() {
-    this.setState({
-      ...this.props
-    });
+    this.setState({ ...this.props });
   }
 
   componentDidUpdate(prevProps) {
