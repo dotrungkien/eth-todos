@@ -67,7 +67,7 @@ export const fetchTodos = () => async (dispatch, getState) => {
   const todos = [];
   for (let i = 0; i < numberOfTodos; i++) {
     const todo = await contract.getTodo(i);
-    const content = web3.toAscii(todo[0]);
+    const content = web3.toUtf8(todo[0]);
     const completed = todo[1];
     todos.push({ id: i, content, completed });
   }
@@ -92,9 +92,8 @@ export const addTodo = content => async (dispatch, getState) => {
 
 export const deleteTodo = id => async (dispatch, getState) => {
   const state = getState();
-  const web3 = state.web3;
   const contract = state.contract;
-  await contract.deleteTodo(id, { gas: 300000, from: web3.eth.coinbase });
+  await contract.deleteTodo(id, { gas: 300000, from: state.account });
   const payload = { id };
   dispatch({
     type: TODO_DELETED,
@@ -110,9 +109,9 @@ export const updateTodo = (id, content, completed) => async (
   const state = getState();
   const web3 = state.web3;
   const contract = state.contract;
-  console.log("updateTodo", id, content, completed);
-  await contract.updateTodo(id, content, completed, {
-    from: web3.eth.coinbase,
+  const encodedContent = web3.fromAscii(content);
+  await contract.updateTodo(id, encodedContent, completed, {
+    from: state.account,
     gas: 300000
   });
   const payload = { id, content, completed };

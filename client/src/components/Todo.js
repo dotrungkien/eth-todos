@@ -50,10 +50,6 @@ class Todo extends Component {
     this.setState({ [key]: event.target.value });
   };
 
-  handleCheck = key => event => {
-    this.setState({ [key]: event.target.checked });
-  };
-
   handleBoxCheck = e => {
     e.preventDefault();
     const { updateTodo } = this.props;
@@ -89,7 +85,7 @@ class Todo extends Component {
         {this.state.editing ? (
           <Input
             value={this.state.content}
-            onChange={this.handleChange}
+            onChange={this.handleChange("content")}
             onKeyDown={this.handleKeyDown}
             onBlur={this.handleBlur}
           />
