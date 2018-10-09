@@ -33,24 +33,33 @@ const todos = (state = initialState, action) => {
     case TODO_ADDED:
       return {
         ...state,
-        todos: [...state.todos, { content: action.payload, completed: false }]
+        todos: [
+          ...state.todos,
+          {
+            id: state.todos.length,
+            content: action.payload.content,
+            completed: false
+          }
+        ]
       };
     case TODO_DELETED:
-      let todos = state.todos.slice();
-      todos.splice(action.id, 1);
       return {
         ...state,
-        todos: todos
+        todos: state.todos.filter(todo => todo.id !== action.payload.id)
       };
     case TODO_UPDATED:
-      let todosToUpdate = state.todos.slice();
-      todosToUpdate.splice(action.payload.id, 1, {
-        content: action.payload.content,
-        completed: action.payload.completed
-      });
       return {
         ...state,
-        todos: todosToUpdate
+        todos: state.todos.map(
+          todo =>
+            todo.id === action.payload.id
+              ? {
+                  id: action.payload.id,
+                  content: action.payload.content,
+                  completed: action.payload.completed
+                }
+              : todo
+        )
       };
     default:
       return state;

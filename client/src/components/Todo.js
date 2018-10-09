@@ -26,28 +26,39 @@ class Todo extends Component {
   }
 
   componentWillMount() {
-    this.updateState();
-  }
-  updateState() {
     this.setState({
-      id: this.props.id,
-      content: this.props.content,
-      completed: this.props.completed
+      ...this.props
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.content !== prevProps.content ||
+      this.props.completed !== prevProps.completed
+    ) {
+      this.setState({
+        ...this.props
+      });
+    }
   }
 
   startEditing = e => {
     this.setState({ editing: true });
   };
 
-  handleChange = e => {
-    this.setState({ content: e.target.value });
+  handleChange = key => event => {
+    this.setState({ [key]: event.target.value });
+  };
+
+  handleCheck = key => event => {
+    this.setState({ [key]: event.target.checked });
   };
 
   handleBoxCheck = e => {
     e.preventDefault();
+    const { updateTodo } = this.props;
     this.setState({ completed: e.target.checked });
-    this.props.updateTodo(this.state.id, this.state.content, e.target.checked);
+    updateTodo(this.state.id, this.state.content, e.target.checked);
   };
 
   handleKeyDown = e => {
@@ -63,7 +74,8 @@ class Todo extends Component {
   };
 
   submitUpdate(content) {
-    this.props.updateTodo(this.state.id, content, this.state.completed);
+    const { updateTodo } = this.props;
+    updateTodo(this.state.id, content, this.state.completed);
     this.setState({ content: content, editing: false });
   }
 
@@ -87,7 +99,7 @@ class Todo extends Component {
           </ListItemText>
         )}
         <ListItemSecondaryAction>
-          <IconButton onClick={() => this.props.deleteTodo(this.state.id)}>
+          <IconButton onClick={() => this.props.deleteTodo(this.props.id)}>
             <Delete />
           </IconButton>
         </ListItemSecondaryAction>

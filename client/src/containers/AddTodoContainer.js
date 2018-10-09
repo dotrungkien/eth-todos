@@ -20,7 +20,6 @@ class AddTodoContainer extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    console.log("submited", this.state.todoText);
     this.props.addTodo(this.state.todoText);
   };
 
