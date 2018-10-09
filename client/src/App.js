@@ -8,6 +8,7 @@ import TodoListContainer from "./containers/TodoListContainer";
 
 import {
   web3Connect,
+  getAccountInfo,
   instantiateContract,
   fetchTodos,
   addTodo
@@ -15,11 +16,11 @@ import {
 
 class App extends Component {
   componentWillMount() {
-    window.addEventListener("load", () => {
-      this.props.web3Connect();
-      this.props.instantiateContract().then(() => {
-        this.props.fetchTodos();
-      });
+    window.addEventListener("load", async () => {
+      await this.props.web3Connect();
+      await this.props.getAccountInfo();
+      await this.props.instantiateContract();
+      await this.props.fetchTodos();
     });
   }
 
@@ -34,7 +35,7 @@ class App extends Component {
         alignItems="center"
       >
         <h1>Todos</h1>
-        <Account web3={this.props.web3} />
+        <Account account={this.props.account} balance={this.props.balance} />
         <br />
         <AddTodoContainer />
         <br />
@@ -46,14 +47,14 @@ class App extends Component {
 
 const mapDispatchToProps = {
   web3Connect,
+  getAccountInfo,
   instantiateContract,
   fetchTodos,
   addTodo
 };
 
 const mapsStateToProps = state => ({
-  web3: state.web3,
-  todos: state.todos
+  ...state
 });
 
 export default connect(

@@ -3,6 +3,7 @@ import contract from "truffle-contract";
 import Todos from "../contracts/Todos";
 import {
   WEB3_CONNECTED,
+  ACCOUNT_INFO,
   TODO_ADDED,
   TODO_DELETED,
   TODO_UPDATED,
@@ -36,6 +37,24 @@ export const instantiateContract = () => (dispatch, getState) => {
       type: TODOS_CONTRACT_INSTANTIATED,
       payload: contract
     });
+  });
+};
+
+export const getAccountInfo = () => (dispatch, getState) => {
+  const state = getState();
+  const web3 = state.web3;
+  const accounts = web3.eth.accounts;
+  web3.eth.getBalance(accounts[0], (err, result) => {
+    if (!err) {
+      console.log(accounts[0], result.toNumber());
+      dispatch({
+        type: ACCOUNT_INFO,
+        payload: {
+          account: accounts[0],
+          balance: web3.fromWei(result.toNumber())
+        }
+      });
+    }
   });
 };
 

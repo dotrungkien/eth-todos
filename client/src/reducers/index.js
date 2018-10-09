@@ -1,5 +1,6 @@
 import {
   WEB3_CONNECTED,
+  ACCOUNT_INFO,
   TODO_ADDED,
   TODO_DELETED,
   TODO_UPDATED,
@@ -9,6 +10,8 @@ import {
 
 const initialState = {
   web3: null,
+  account: null,
+  balance: null,
   todos: [],
   contract: null
 };
@@ -19,6 +22,12 @@ const todos = (state = initialState, action) => {
       return {
         ...state,
         web3: action.payload
+      };
+    case ACCOUNT_INFO:
+      return {
+        ...state,
+        account: action.payload.account,
+        balance: action.payload.balance
       };
     case TODOS_CONTRACT_INSTANTIATED:
       return {
