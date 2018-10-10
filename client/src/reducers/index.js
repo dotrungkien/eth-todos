@@ -6,7 +6,7 @@ import {
   TODO_UPDATED,
   TODOS_CONTRACT_INSTANTIATED,
   TODOS_FETCHED
-} from "../constants/ActionTypes";
+} from '../constants/ActionTypes'
 
 const initialState = {
   web3: null,
@@ -14,7 +14,7 @@ const initialState = {
   balance: null,
   todos: [],
   contract: null
-};
+}
 
 const todos = (state = initialState, action) => {
   switch (action.type) {
@@ -22,23 +22,23 @@ const todos = (state = initialState, action) => {
       return {
         ...state,
         web3: action.payload
-      };
+      }
     case ACCOUNT_INFO:
       return {
         ...state,
         account: action.payload.account,
         balance: action.payload.balance
-      };
+      }
     case TODOS_CONTRACT_INSTANTIATED:
       return {
         ...state,
         contract: action.payload
-      };
+      }
     case TODOS_FETCHED:
       return {
         ...state,
         todos: action.payload
-      };
+      }
     case TODO_ADDED:
       return {
         ...state,
@@ -50,12 +50,12 @@ const todos = (state = initialState, action) => {
             completed: false
           }
         ]
-      };
+      }
     case TODO_DELETED:
       return {
         ...state,
         todos: state.todos.filter(todo => todo.id !== action.payload.id)
-      };
+      }
     case TODO_UPDATED:
       return {
         ...state,
@@ -69,10 +69,10 @@ const todos = (state = initialState, action) => {
                 }
               : todo
         )
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default todos;
+export default todos
