@@ -1,7 +1,7 @@
-import React from "react";
-import { Button, Input, Grid } from "@material-ui/core";
+import React from 'react'
+import { Button, Input, Grid } from '@material-ui/core'
 
-const AddTodo = ({ handleChange, handleSubmit}) => {
+const AddTodo = ({ handleChange, handleSubmit }) => {
   return (
     <Grid item xs={12}>
       <form onSubmit={handleSubmit}>
@@ -11,7 +11,7 @@ const AddTodo = ({ handleChange, handleSubmit}) => {
         </Button>
       </form>
     </Grid>
-  );
-};
+  )
+}
 
-export default AddTodo;
+export default AddTodo
