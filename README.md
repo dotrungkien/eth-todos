@@ -31,3 +31,9 @@ yarn start
 ```
 
 your app will run on [http://localhost:3000/](http://localhost:3000/)
+
+4. Migrate to Ropsten network (Optional)
+
+```sh
+truffle migrate --network ropsten
+```
