@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import Todo from "../components/Todo";
-import { connect } from "react-redux";
-import { deleteTodo, updateTodo } from "../actions";
-import { List } from "@material-ui/core";
+import React, { Component } from 'react'
+import Todo from '../components/Todo'
+import { connect } from 'react-redux'
+import { deleteTodo, updateTodo } from '../actions'
+import { List } from '@material-ui/core'
 
 class TodoListContainer extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       todos: null
-    };
+    }
   }
 
   componentWillMount() {
-    this.setState({ todos: this.props.todos });
+    this.setState({ todos: this.props.todos })
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.todos !== prevProps.todos) {
-      this.setState({ todos: this.props.todos });
+      this.setState({ todos: this.props.todos })
     }
   }
 
@@ -36,15 +36,15 @@ class TodoListContainer extends Component {
             ))
           : null}
       </List>
-    );
+    )
   }
 }
 const mapDispatchToProps = {
   deleteTodo,
   updateTodo
-};
+}
 
 export default connect(
   null,
   mapDispatchToProps
-)(TodoListContainer);
+)(TodoListContainer)
