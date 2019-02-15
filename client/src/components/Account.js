@@ -1,8 +1,8 @@
-import React from 'react'
-import { Grid, List, ListItem, Avatar, ListItemText } from '@material-ui/core'
-import { AccountBox, AccountBalanceWallet } from '@material-ui/icons'
+import React from 'react';
+import { Grid, List, ListItem, Avatar, ListItemText } from '@material-ui/core';
+import { AccountBox, AccountBalanceWallet } from '@material-ui/icons';
 
-export const Account = ({ account, balance }) => (
+const Account = ({ account, balance }) => (
   <Grid item xs={12}>
     <List>
       <ListItem>
@@ -19,6 +19,6 @@ export const Account = ({ account, balance }) => (
       </ListItem>
     </List>
   </Grid>
-)
+);
 
-export default Account
+export default Account;

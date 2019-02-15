@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
   ListItem,
   ListItemText,
@@ -6,27 +6,27 @@ import {
   IconButton,
   Checkbox,
   Input
-} from '@material-ui/core'
-import { Delete } from '@material-ui/icons'
+} from '@material-ui/core';
+import { Delete } from '@material-ui/icons';
 
 class Todo extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       id: null,
       content: null,
       completed: null,
       editding: false
-    }
-    this.startEditing = this.startEditing.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleBoxCheck = this.handleBoxCheck.bind(this)
-    this.handleKeyDown = this.handleKeyDown.bind(this)
-    this.handleBlur = this.handleBlur.bind(this)
+    };
+    this.startEditing = this.startEditing.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleBoxCheck = this.handleBoxCheck.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   componentWillMount() {
-    this.setState({ ...this.props })
+    this.setState({ ...this.props });
   }
 
   componentDidUpdate(prevProps) {
@@ -36,41 +36,41 @@ class Todo extends Component {
     ) {
       this.setState({
         ...this.props
-      })
+      });
     }
   }
 
   startEditing = e => {
-    this.setState({ editing: true })
-  }
+    this.setState({ editing: true });
+  };
 
   handleChange = key => event => {
-    this.setState({ [key]: event.target.value })
-  }
+    this.setState({ [key]: event.target.value });
+  };
 
   handleBoxCheck = e => {
-    e.preventDefault()
-    const { updateTodo } = this.props
-    this.setState({ completed: e.target.checked })
-    updateTodo(this.state.id, this.state.content, e.target.checked)
-  }
+    e.preventDefault();
+    const { updateTodo } = this.props;
+    this.setState({ completed: e.target.checked });
+    updateTodo(this.state.id, this.state.content, e.target.checked);
+  };
 
   handleKeyDown = e => {
     if (e.keyCode === 13) {
-      e.preventDefault()
-      this.submitUpdate(e.target.value)
+      e.preventDefault();
+      this.submitUpdate(e.target.value);
     }
-  }
+  };
 
   handleBlur = e => {
-    e.preventDefault()
-    this.submitUpdate(e.target.value)
-  }
+    e.preventDefault();
+    this.submitUpdate(e.target.value);
+  };
 
   submitUpdate(content) {
-    const { updateTodo } = this.props
-    updateTodo(this.state.id, content, this.state.completed)
-    this.setState({ content: content, editing: false })
+    const { updateTodo } = this.props;
+    updateTodo(this.state.id, content, this.state.completed);
+    this.setState({ content: content, editing: false });
   }
 
   render() {
@@ -98,8 +98,8 @@ class Todo extends Component {
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
-    )
+    );
   }
 }
 
-export default Todo
+export default Todo;
