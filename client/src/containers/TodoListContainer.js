@@ -1,50 +1,37 @@
-import React, { Component } from 'react'
-import Todo from '../components/Todo'
-import { connect } from 'react-redux'
-import { deleteTodo, updateTodo } from '../actions'
-import { List } from '@material-ui/core'
+import React, { useState, useEffect } from 'react';
+import Todo from '../components/Todo';
+import { connect } from 'react-redux';
+import { deleteTodo, updateTodo } from '../actions';
+import { List } from '@material-ui/core';
 
-class TodoListContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      todos: null
-    }
-  }
+const TodoListContainer = props => {
+  const [todos, setTodos] = useState(null);
 
-  componentWillMount() {
-    this.setState({ todos: this.props.todos })
-  }
+  useEffect(() => {
+    setTodos(props.todos);
+  });
 
-  componentDidUpdate(prevProps) {
-    if (this.props.todos !== prevProps.todos) {
-      this.setState({ todos: this.props.todos })
-    }
-  }
-
-  render() {
-    return (
-      <List>
-        {this.state.todos.length
-          ? this.state.todos.map((todo, index) => (
-              <Todo
-                key={index}
-                {...todo}
-                deleteTodo={this.props.deleteTodo}
-                updateTodo={this.props.updateTodo}
-              />
-            ))
-          : null}
-      </List>
-    )
-  }
-}
+  return (
+    <List>
+      {todos && todos.length
+        ? todos.map((todo, index) => (
+            <Todo
+              key={index}
+              {...todo}
+              deleteTodo={props.deleteTodo}
+              updateTodo={props.updateTodo}
+            />
+          ))
+        : null}
+    </List>
+  );
+};
 const mapDispatchToProps = {
   deleteTodo,
   updateTodo
-}
+};
 
 export default connect(
   null,
   mapDispatchToProps
-)(TodoListContainer)
+)(TodoListContainer);
