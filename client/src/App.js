@@ -1,61 +1,54 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Grid } from '@material-ui/core'
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Grid } from '@material-ui/core';
 
-import Account from './components/Account'
-import AddTodoContainer from './containers/AddTodoContainer'
-import TodoListContainer from './containers/TodoListContainer'
+import Account from './components/Account';
+import AddTodoContainer from './containers/AddTodoContainer';
+import TodoListContainer from './containers/TodoListContainer';
 
-import {
-  web3Connect,
-  getAccountInfo,
-  instantiateContract,
-  fetchTodos
-} from './actions'
+const App = props => {
+  const [web3, setWeb3] = useState(null);
+  useEffect(() => {
+    setWeb3(props.web3);
+  });
+  const [account, setAccount] = useState(null);
+  useEffect(() => {
+    setAccount(props.account);
+  });
+  const [balance, setBalance] = useState(null);
+  useEffect(() => {
+    setBalance(props.balance);
+  });
+  const [todos, setTodos] = useState(null);
+  useEffect(() => {
+    setTodos(props.todos);
+  });
 
-class App extends Component {
-  componentWillMount() {
-    window.addEventListener('load', async () => {
-      await this.props.web3Connect()
-      await this.props.getAccountInfo()
-      await this.props.instantiateContract()
-      await this.props.fetchTodos()
-    })
-  }
-
-  render() {
-    if (!this.props.web3) return 'Loading web3....'
-    return (
-      <Grid
-        container
-        spacing={16}
-        direction="column"
-        justify="center"
-        alignItems="center"
-      >
-        <h1>Todos</h1>
-        <Account account={this.props.account} balance={this.props.balance} />
-        <br />
-        <AddTodoContainer />
-        <br />
-        <TodoListContainer todos={this.props.todos} />
-      </Grid>
-    )
-  }
-}
-
-const mapDispatchToProps = {
-  web3Connect,
-  getAccountInfo,
-  instantiateContract,
-  fetchTodos
-}
+  return web3 ? (
+    <Grid
+      container
+      spacing={16}
+      direction='column'
+      justify='center'
+      alignItems='center'
+    >
+      <h1>Todos</h1>
+      <Account account={account} balance={balance} />
+      <br />
+      <AddTodoContainer />
+      <br />
+      <TodoListContainer todos={todos} />
+    </Grid>
+  ) : (
+    'Loading web3....'
+  );
+};
 
 const mapsStateToProps = state => ({
   ...state
-})
+});
 
 export default connect(
   mapsStateToProps,
-  mapDispatchToProps
-)(App)
+  null
+)(App);

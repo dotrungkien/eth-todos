@@ -11,16 +11,25 @@ import { Delete } from '@material-ui/icons';
 
 const TodoHook = props => {
   const [id, setID] = useState(null);
+  useEffect(() => {
+    setID(props.id);
+  });
   const [content, setContent] = useState(null);
+  useEffect(() => {
+    setContent(props.content);
+  });
   const [completed, setCompleted] = useState(null);
+  useEffect(() => {
+    setCompleted(props.completed || false);
+  });
   const [editing, setEditing] = useState(false);
 
   const startEditing = e => {
     setEditing(true);
   };
 
-  const handleChange = event => {
-    setContent(event.target.value);
+  const handleChange = e => {
+    setContent(e.target.value);
   };
 
   const handleBoxCheck = e => {
@@ -55,7 +64,7 @@ const TodoHook = props => {
       {editing ? (
         <Input
           value={content}
-          onChange={handleChange('content')}
+          onChange={handleChange}
           onKeyDown={handleKeyDown}
           onBlur={handleBlur}
         />
